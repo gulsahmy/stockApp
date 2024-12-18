@@ -12,6 +12,8 @@ import { Formik, Form } from "formik";
 import { object, string } from "yup";
 
 const Login = () => {
+  
+
   const loginSchema = object({
     email: string()
       .email("Geçerli bir email giriniz")
@@ -71,6 +73,7 @@ const Login = () => {
             onSubmit={(values, actions) => {
               //TODO
               //? POST (Login)
+              login(values)
               //? Toastify
               //? Global state güncellemesi
               //? Form resetleme
