@@ -1,21 +1,20 @@
-import Avatar from "@mui/material/Avatar";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import LockIcon from "@mui/icons-material/Lock";
-import image from "../assets/graph.png";
-import { Link } from "react-router-dom";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import { Button } from "@mui/material";
-import { Formik, Form } from "formik";
-import { object, string } from "yup";
+import Avatar from "@mui/material/Avatar"
+import Container from "@mui/material/Container"
+import Grid from "@mui/material/Grid"
+import Typography from "@mui/material/Typography"
+import LockIcon from "@mui/icons-material/Lock"
+import image from "../assets/graph.png"
+import { Link } from "react-router-dom"
+import Box from "@mui/material/Box"
+import TextField from "@mui/material/TextField"
+import { Button } from "@mui/material"
+import { Formik, Form } from "formik"
+import { object, string } from "yup"
 // import { login } from "../services/useApiRequest"
-import useApiRequest from "../services/useApiRequest";
+import useApiRequest from "../services/useApiRequest"
 
 const Login = () => {
   const { login } = useApiRequest()
-  
 
   const loginSchema = object({
     email: string()
@@ -24,15 +23,16 @@ const Login = () => {
     password: string()
       .required("Şifre zorunludur")
       .min(8, "Şifre en az 8 karakter olmalıdır")
-      .max(16, "Şifre en fazla 16 karakter olabilir")
-      .matches(/\d+/, "Şifre en az bir rakam içermelidir")
-      .matches(/[a-z]/, "Şifre en az bir küçük harf içermelidir")
-      .matches(/[A-Z]/, "Şifre en az bir büyük harf içermelidir")
+      .max(16, "Şifre en fazla 16 karakter olmalıdır")
+      .matches(/\d+/, "Şifre en az bir rakam içermelidir.")
+      .matches(/[a-z]+/, "Şifre en az bir küçük harf içermelidir.")
+      .matches(/[A-Z]+/, "Şifre en az bir büyük harf içermelidir.")
       .matches(
         /[@$!%*?&]+/,
-        "Şifre en az bir özel karakter(@$!%*?&) içermelidir"
+        "Şifre en az bir özel karakter(@$!%*?&) içermelidir."
       ),
-  });
+  })
+
   return (
     <Container maxWidth="lg">
       <Grid
@@ -76,13 +76,13 @@ const Login = () => {
             onSubmit={(values, actions) => {
               //TODO
               //? POST (Login)
-              login(values)
               //? Toastify
-              //? Global state güncellemesi
-              //? Form resetleme
-              actions.resetForm();
-              actions.setSubmitting(false);
-              //? Navigate
+              //? Global state güncellenmesi
+              //? form resetleme
+              //? navigate
+              login(values)
+              actions.resetForm()
+              actions.setSubmitting(false) //? isSubmitting
             }}
           >
             {({
@@ -94,7 +94,7 @@ const Login = () => {
               isSubmitting,
             }) => (
               <Form>
-                <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                <Box sx={{ backgroundColor: "rgba(255, 255, 255, 0.8)", display: "flex", flexDirection: "column", gap: 2 }}>
                   <TextField
                     label="Email"
                     name="email"
@@ -136,14 +136,14 @@ const Login = () => {
           </Box>
         </Grid>
 
-        <Grid item xs={12} sm={7} md={6}>
-          <Container maxWidth="xs" style={{ padding: 0 }} >
-            <img src={image} alt="img" style={{ width: '100%', height: 'auto' }} />
+        <Grid item xs={10} sm={7} md={6}>
+          <Container>
+            <img src={image} alt="img" />
           </Container>
         </Grid>
       </Grid>
     </Container>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login
