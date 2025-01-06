@@ -1,54 +1,48 @@
-
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
   user: "",
   token: "",
   loading: false,
   error: false,
-};
+}
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
     fetchStart: (state) => {
-      state.loading = true;
-      state.error = false;
+      state.loading = true
     },
-
     loginSuccess: (state, { payload }) => {
-      state.loading = false;
-      state.user = payload.user.username;
-      state.token = payload.token;
+      state.loading = false
+      state.user = payload.user.username
+      state.token = payload.token
     },
-
+    //? Register işlemi için ayrı bir action creator fonksiyonun yazılması
+    //? Register ile Login arasında bazı farklılıklar olduğu için ayrı bir fonksiyon yazıldı.
     registerSuccess: (state, { payload }) => {
-      state.loading = false;
-      state.user = payload.user.username; // Kayıt sonrası kullanıcı bilgisi
-      state.token = payload.token; // Eğer token döndürülüyorsa
+      state.loading = false
+      state.user = payload.data.username
+      state.token = payload.token
     },
-
-    fetchFail: (state) => {
-      state.loading = false;
-      state.error = true;
-    },
-
     logoutSuccess: (state) => {
-      state.user = ""; // Kullanıcı bilgisini temizle
-      state.token = ""; // Token bilgisini temizle
-      state.loading = false;
-      state.error = false;
+      state.loading = false
+      state.user = ""
+      state.token = ""
+    },
+    fetchFail: (state) => {
+      state.loading = false
+      state.error = true
     },
   },
-});
+})
 
 export const {
   fetchStart,
   loginSuccess,
-  registerSuccess,
   fetchFail,
+  registerSuccess,
   logoutSuccess,
-} = authSlice.actions;
-
-export default authSlice.reducer;
+} = authSlice.actions
+export default authSlice.reducer
